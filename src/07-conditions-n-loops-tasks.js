@@ -332,8 +332,38 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const stack = [];
+  const openBrackets = ['[', '{', '(', '<'];
+  const bracketsPair = {
+    ']': '[',
+    '}': '{',
+    ')': '(',
+    '>': '<',
+  };
+  for (let i = 0; i < str.length; i += 1) {
+    if (openBrackets.includes(str[i])) {
+      if (
+        bracketsPair[str[i]] === str[i]
+        && bracketsPair[str[i]] === stack[stack.length - 1]
+      ) {
+        stack.pop();
+      } else {
+        stack.push(str[i]);
+      }
+    } else {
+      if (stack.length === 0) {
+        return false;
+      }
+
+      if (bracketsPair[str[i]] === stack[stack.length - 1]) {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
 }
 
 /**
@@ -452,9 +482,64 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const win = [
+    [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ],
+    [
+      [1, 0],
+      [1, 1],
+      [1, 2],
+    ],
+    [
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ],
+    [
+      [0, 0],
+      [1, 1],
+      [2, 2],
+    ],
+    [
+      [0, 2],
+      [1, 1],
+      [2, 0],
+    ],
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+    ],
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+    ],
+    [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+    ],
+  ];
+
+  const row = [...position];
+  for (let i = 0; i < win.length; i += 1) {
+    const item = win[i];
+    if (
+      row[item[0][0]][item[0][1]] === row[item[1][0]][item[1][1]]
+            && row[item[0][0]][item[0][1]] === row[item[2][0]][item[2][1]]
+            && row[item[0][0]][item[0][1]]
+    ) {
+      return row[item[0][0]][item[0][1]];
+    }
+  }
+  return undefined;
 }
+
 
 module.exports = {
   getFizzBuzz,
