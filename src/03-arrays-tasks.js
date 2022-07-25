@@ -537,18 +537,8 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(arr, key, value) {
-  const res = arr.reduce((acc, item) => {
-    if (acc.has(key(item))) {
-      const val = acc.get(key(item));
-      val.push(value(item));
-      acc.set(key(item), val);
-    } else {
-      acc.set(key(item), [value(item)]);
-    }
-    return acc;
-  }, new Map());
-  return res;
+function group(/* arr, key, value */) {
+  throw new Error('Not implemented');
 }
 
 /**
